@@ -1,0 +1,35 @@
+<div class="panel-heading">
+	List of comments
+</div>
+<div class="panel-body" v-if="$loadingRouteData">
+	Loading data {{ loadingRouteData }}
+</div>
+<div class="panel-body" v-if="messages.length > 0">
+	<div v-for="message in messages" class="alert alert-{{ message.type }} alert-dismissible" role="alert">
+		{{ message.message }}
+	</div>
+</div>
+
+<div class="panel-body" v-if="comments.length == 0">
+	You have no comments!
+</div>
+
+<table class="table" v-if=" ! $loadingRouteData && comments.length > 0">
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Name</th>
+			<th width="120px">Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr v-for="comment in comments">
+			<td>{{ comment.id }}</td>
+			<td>{{ comment.text }}</td>
+			<td>
+				<a class="btn btn-primary btn-xs" v-link="{ path: '/comment/'+comment.id }">Edit</a>
+				<a class="btn btn-primary btn-xs" v-on:click="deleteComment($index)">Delete</a>
+			</td>
+		</tr>
+	</tbody>
+</table>
