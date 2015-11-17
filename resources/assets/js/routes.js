@@ -59,6 +59,15 @@ module.exports = {
         subRoutes: {
           '/': {
             component:require('./compiled/pages/comments/index.vue')
+          },
+          '/list': {
+            component: require('./compiled/pages/comments/list.vue'),
+            subRoutes: {
+              '/': {
+                component: require('./compiled/pages/comments/list/index.vue')
+              }
+            }
+          
           }
         }
       },
