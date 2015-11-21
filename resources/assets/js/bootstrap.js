@@ -1,7 +1,6 @@
 // Import requirements using browserify
 window.Vue = require('vue')
 window.VueRouter = require('vue-router')
-
 // Insert vue-router and vue-resource into Vue
 
 // Import the actual routes, aliases, ...
@@ -25,6 +24,8 @@ var defaultRequest = require('rest/interceptor/defaultRequest')
 var errorCode = require('rest/interceptor/errorCode')
 var interceptor = require('rest/interceptor')
 var jwtAuth = require('./interceptors/jwtAuth')
+
+
 
 window.client = rest.wrap(pathPrefix, { prefix: config.api.base_url })
                     .wrap(mime)

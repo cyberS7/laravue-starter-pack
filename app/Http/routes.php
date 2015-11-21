@@ -26,6 +26,7 @@ $api->version('v1', function ($api) {
 
 			// Comments getting
 			$api->get('comments', 'CommentController@index');
+			$api->post('comments', 'CommentController@store');
 		// });
 
 	});

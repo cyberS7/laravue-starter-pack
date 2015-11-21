@@ -2,8 +2,8 @@ module.exports = {
 
   data: function () {
     return {
-      comments: [],
-      messages: []
+      messages: [],
+      comments: {}
     }
   },
 
@@ -23,6 +23,33 @@ module.exports = {
           }
         }
       )
+    },
+     createComment: function (e) {
+      e.preventDefault()
+        var that = this
+        client({path: 'comments', entity: this.newComment}).then(
+          function (response, status) {
+        
+            that.messages = [ {type: 'success', message: 'Woof woof! Your dog was created'} ]
+            var data = that.newComment
+            data.id = response.entity.id
+            data.text = that.newComment.text
+            that.comments.push(data)
+            that.newComment = {text: '', id: ''}
+            // that.comment.text = ''
+            // Vue.nextTick(function () {
+            //   document.getElementById('nameInput').focus()
+            // })
+          },
+          function (response, status) {
+            that.messages = []
+            for (var key in response.entity) {
+              that.messages.push({type: 'danger', message: response.entity[key]})
+            }
+          }
+        )
+      
+
     },
 
     deleteDog: function (index) {

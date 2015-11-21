@@ -1,4 +1,147 @@
-<div class="panel-heading">
+<header v-if="$loadingRouteData">
+  <div aria-busy="true" aria-label="Loading, please wait." role="progressbar"></div>
+</header>
+
+<style>
+header [role="progressbar"][aria-busy="true"] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding-top: 8px;
+  width: 100%;
+  background-color: #159756;
+  -webkit-animation: preloader-background linear 3.5s infinite;
+          animation: preloader-background linear 3.5s infinite;
+}
+header [role="progressbar"][aria-busy="true"]::before, header [role="progressbar"][aria-busy="true"]::after {
+  display: block;
+  position: absolute;
+  top: 0;
+  z-index: 2;
+  width: 0;
+  height: 8px;
+  background: #afa;
+  -webkit-animation: preloader-front linear 3.5s infinite;
+          animation: preloader-front linear 3.5s infinite;
+  content: '';
+}
+header [role="progressbar"][aria-busy="true"]::before {
+  right: 50%;
+}
+header [role="progressbar"][aria-busy="true"]::after {
+  left: 50%;
+}
+
+@-webkit-keyframes preloader-background {
+  0%, 24.9% {
+    background-color: #159756;
+  }
+  25%, 49.9% {
+    background-color: #da4733;
+  }
+  50%, 74.9% {
+    background-color: #3b78e7;
+  }
+  75%, 100% {
+    background-color: #fdba2c;
+  }
+}
+
+@keyframes preloader-background {
+  0%, 24.9% {
+    background-color: #159756;
+  }
+  25%, 49.9% {
+    background-color: #da4733;
+  }
+  50%, 74.9% {
+    background-color: #3b78e7;
+  }
+  75%, 100% {
+    background-color: #fdba2c;
+  }
+}
+@-webkit-keyframes preloader-front {
+  0% {
+    width: 0;
+    background-color: #da4733;
+  }
+  24.9% {
+    width: 50%;
+    background-color: #da4733;
+  }
+  25% {
+    width: 0;
+    background-color: #3b78e7;
+  }
+  49.9% {
+    width: 50%;
+    background-color: #3b78e7;
+  }
+  50% {
+    width: 0;
+    background-color: #fdba2c;
+  }
+  74.9% {
+    width: 50%;
+    background-color: #fdba2c;
+  }
+  75% {
+    width: 0%;
+    background-color: #159756;
+  }
+  100% {
+    width: 50%;
+    background-color: #159756;
+  }
+}
+@keyframes preloader-front {
+  0% {
+    width: 0;
+    background-color: #da4733;
+  }
+  24.9% {
+    width: 50%;
+    background-color: #da4733;
+  }
+  25% {
+    width: 0;
+    background-color: #3b78e7;
+  }
+  49.9% {
+    width: 50%;
+    background-color: #3b78e7;
+  }
+  50% {
+    width: 0;
+    background-color: #fdba2c;
+  }
+  74.9% {
+    width: 50%;
+    background-color: #fdba2c;
+  }
+  75% {
+    width: 0%;
+    background-color: #159756;
+  }
+  100% {
+    width: 50%;
+    background-color: #159756;
+  }
+}
+* {
+  box-sizing: border-box;
+}
+
+header {
+  position: relative;
+  width: 100%;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+}
+
+</style>
+<div class="panel-heading testing">
 	List of comments
 </div>
 <div class="panel-body" v-if="$loadingRouteData">
@@ -13,7 +156,6 @@
 <div class="panel-body" v-if="comments.length == 0">
 	You have no comments!
 </div>
-
 <table class="table" v-if=" ! $loadingRouteData && comments.length > 0">
 	<thead>
 		<tr>
@@ -27,12 +169,33 @@
 			<td>{{ comment.id }}</td>
 			<td>{{ comment.text }}</td>
 			<td>
-				<a class="btn btn-primary btn-xs" v-link="{ path: '/comment/'+comment.id }">Edit</a>
-				<a class="btn btn-primary btn-xs" v-on:click="deleteComment($index)">Delete</a>
+<!-- 				<a class="btn btn-primary btn-xs" v-link="{ path: '/comment/'+comment.id }">Edit</a>
+				<a class="btn btn-primary btn-xs" v-on:click="deleteComment($index)">Delete</a> -->
 			</td>
 		</tr>
 	</tbody>
 </table>
+
+<div class="panel-heading">
+	Make a comment!
+</div>
+<div class="panel-body">
+	
+	<form class="form-horizontal" role="form" v-on:submit="createComment">
+		<div class="form-group">
+			<label for="name" class="col-sm-2 col-sm-offset-1 control-label">Name your comment</label>
+			<div class="col-sm-5">
+				<input class="form-control" required="required" name="text" type="text" v-model="newComment.text" id="nameInput">
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<div class="col-sm-4 col-sm-offset-3">
+				<button type="submit" class="btn btn-primary"><i class="fa fa-btn fa-save"></i>Make the comment!</button>
+			</div>
+		</div>
+	</form>
+</div>
 
 <div class="panel-heading">
 	<router-view></router-view>

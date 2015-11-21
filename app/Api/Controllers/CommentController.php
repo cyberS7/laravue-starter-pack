@@ -33,6 +33,7 @@ class CommentController extends BaseController
     public function create()
     {
         //
+
     }
 
     /**
@@ -44,6 +45,11 @@ class CommentController extends BaseController
     public function store(CommentRequest $request)
     {
         //
+        $data = new Comment;
+        $data->text = $request->text;
+        $data->save();
+        
+        return response()->json(['id' => $data->id]);
     }
 
     /**

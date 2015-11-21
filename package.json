@@ -9,17 +9,18 @@
     "url": "git://github.com/layer7be/vue-starter.git"
   },
   "devDependencies": {
+    "babel-runtime": "^5.8.25",
     "bootstrap-sass": "^3.0.0",
     "elixir-vuemaker": "^0.1.0",
     "envify": "^3.4.0",
     "gulp": "^3.8.8",
     "insert-css": "^0.2.0",
     "laravel-elixir": "^3.0.0",
-    "vue-resource": "^0.1.17",
+    "laravel-elixir-stylus": "^1.0.1",
     "vue": "1.0.4",
     "vue-hot-reload-api": "^1.2.1",
+    "vue-resource": "^0.1.17",
     "vue-router": "^0.7.5",
-    "vueify-insert-css": "^1.0.0",
-    "babel-runtime": "^5.8.25"
+    "vueify-insert-css": "^1.0.0"
   }
 }
